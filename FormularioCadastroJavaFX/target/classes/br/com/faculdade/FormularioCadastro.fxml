@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns="http://javafx.com/javafx/21"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="br.com.faculdade.FormularioCadastroController"
+          hgap="10.0"
+          vgap="14.0"
+          alignment="CENTER"
+          styleClass="formulario">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="txtCpf"
+               promptText="Digite o CPF"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="0"/>
+
+    <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <TextField fx:id="txtNome"
+               promptText="Digite o nome"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="1"/>
+
+    <Label text="Endereço:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField fx:id="txtEndereco"
+               promptText="Digite o endereço"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="2"/>
+
+    <Label text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <ComboBox fx:id="comboEstado"
+              prefWidth="240.0"
+              GridPane.columnIndex="1"
+              GridPane.rowIndex="3"/>
+
+    <Label text="Cargo:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <ComboBox fx:id="comboCargo"
+              prefWidth="240.0"
+              GridPane.columnIndex="1"
+              GridPane.rowIndex="4"/>
+
+    <Button fx:id="btnImprimir"
+            text="Imprimir Dados"
+            prefWidth="130.0"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="5"/>
+
+</GridPane>

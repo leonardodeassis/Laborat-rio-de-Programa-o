@@ -1,0 +1,17 @@
+.formulario {
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
+
+.text-field, .combo-box {
+    -fx-pref-height: 30px;
+}
+
+.button {
+    -fx-padding: 7px 15px;
+}
