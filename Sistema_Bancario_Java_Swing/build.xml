@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SistemaBancario" default="jar" basedir=".">
+    <description>Projeto Java Swing - Sistema Bancário</description>
+    <import file="nbproject/build-impl.xml"/>
+    <target name="-post-jar">
+        <echo>Projeto Sistema Bancário compilado com sucesso.</echo>
+    </target>
+</project>

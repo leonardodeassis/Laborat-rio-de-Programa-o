@@ -1,0 +1,61 @@
+SISTEMA BANCÁRIO - JAVA SWING
+Atividade Prática 03
+
+Aluno: Leonardo
+
+DESCRIÇÃO
+Este projeto foi desenvolvido em Java Swing para a atividade prática de Sistema Bancário.
+O sistema permite:
+- cadastrar contas;
+- consultar contas cadastradas;
+- realizar depósitos;
+- realizar saques;
+- realizar transferências entre contas;
+- consultar o extrato de movimentações.
+
+COMO ABRIR NO APACHE NETBEANS
+1. Extraia o arquivo ZIP.
+2. Abra o Apache NetBeans.
+3. Clique em File > Open Project.
+4. Selecione a pasta "Sistema_Bancario_Java_Swing".
+5. Clique em Open Project.
+6. Clique com o botão direito no projeto e escolha Run.
+
+REQUISITOS
+- JDK 17 ou superior.
+- Apache NetBeans com suporte a projetos Java/Ant.
+- Não é necessária nenhuma biblioteca externa.
+
+DADOS DE EXEMPLO
+Ao iniciar, o programa cria duas contas automaticamente:
+1001 - Leonardo - Conta Exemplo - R$ 1.500,00
+1002 - Maria da Silva - R$ 800,00
+
+FUNCIONALIDADES PARA DEMONSTRAÇÃO
+1. Na aba Contas, cadastre uma nova conta.
+2. Na aba Depósito, selecione uma conta e informe o valor.
+3. Na aba Saque, selecione uma conta e informe o valor.
+4. Na aba Transferência, escolha origem e destino e informe o valor.
+5. Na aba Extrato, selecione uma conta e clique em Consultar extrato.
+
+OBSERVAÇÃO
+Os dados ficam armazenados somente em memória. Ao fechar o programa, os dados cadastrados durante a execução são perdidos.
+Isso é adequado para uma atividade prática introdutória de Java Swing.
+
+COMO GRAVAR O VÍDEO
+No Windows, pressione Win + G ou use a Ferramenta de Captura/Clipchamp.
+Mostre rapidamente:
+- execução do sistema;
+- cadastro de uma conta;
+- depósito;
+- saque;
+- transferência;
+- extrato.
+Um vídeo de 1 a 3 minutos é suficiente, conforme a orientação do professor.
+
+ESTRUTURA DO PROJETO
+Conta.java          -> modelo da conta.
+Movimentacao.java   -> modelo do histórico.
+Banco.java          -> regras de negócio.
+TelaPrincipal.java  -> interface Java Swing.
+Main.java           -> inicialização do programa.

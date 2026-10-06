@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:if="ant:if" xmlns:unless="ant:unless" name="SistemaBancario-impl" default="default" basedir="..">
+    <target name="default" depends="jar"/>
+    <target name="-pre-init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <target name="-init" depends="-pre-init">
+        <property name="javac.source" value="17"/>
+        <property name="javac.target" value="17"/>
+        <property name="build.dir" value="build"/>
+        <property name="build.classes.dir" value="${build.dir}/classes"/>
+        <property name="dist.dir" value="dist"/>
+        <property name="dist.jar" value="${dist.dir}/SistemaBancario.jar"/>
+        <property name="src.dir" value="src"/>
+        <property name="main.class" value="br.com.faculdade.sistemabancario.Main"/>
+    </target>
+
+    <target name="-pre-clean" depends="-init"/>
+    <target name="clean" depends="-pre-clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="-pre-compile" depends="-init">
+        <mkdir dir="${build.classes.dir}"/>
+    </target>
+
+    <target name="compile" depends="-pre-compile">
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+               source="${javac.source}" target="${javac.target}"
+               encoding="UTF-8" includeantruntime="false"/>
+    </target>
+
+    <target name="-pre-jar" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <manifest file="${build.dir}/MANIFEST.MF">
+            <attribute name="Main-Class" value="${main.class}"/>
+        </manifest>
+    </target>
+
+    <target name="jar" depends="-pre-jar">
+        <jar jarfile="${dist.jar}" basedir="${build.classes.dir}"
+             manifest="${build.dir}/MANIFEST.MF"/>
+    </target>
+</project>
