@@ -1,0 +1,44 @@
+RELATORIO DE DECISOES DE PROJETO - BibliotecaPersistente
+
+1) Organizacao em camadas/pacotes
+   - biblioteca.modelo : classes Livro, Membro e Emprestimo (atributos privados com getters/setters).
+   - biblioteca.dao    : LivroDAO, MembroDAO e EmprestimoDAO. Todo o SQL fica aqui, as telas nao escrevem SQL.
+   - biblioteca.util   : ConnectionFactory (usuario/senha/URL em um unico lugar).
+   - biblioteca.tela   : telas Swing (TelaPrincipal, TelaLivros, TelaMembros, TelaEmprestimos).
+
+2) Acesso ao banco
+   - Todas as consultas usam PreparedStatement (evita injecao de SQL).
+   - Connection, PreparedStatement e ResultSet sao abertos com try-with-resources,
+     entao sao fechados automaticamente mesmo em caso de erro.
+   - Cada operacao abre sua propria conexao (simples para o escopo do trabalho;
+     em um sistema maior usaria um pool de conexoes).
+
+3) Tratamento de chaves estrangeiras
+   - A tabela emprestimo referencia livro(id) e membro(id) com ON DELETE RESTRICT.
+   - Se o usuario tentar remover um livro ou membro que ja tem emprestimos, o MySQL devolve o
+     erro 1451. As telas capturam esse erro e mostram uma mensagem clara, em vez de apagar
+     o historico ou estourar uma excecao.
+   - As telas de emprestimo usam JComboBox com os objetos Livro/Membro, entao o id enviado
+     ao banco e sempre de um registro existente.
+
+4) Tratamento de emprestimos ativos
+   - Emprestimo ativo = data_fim NULL.
+   - Antes de realizar um emprestimo, o sistema verifica se o livro ja tem emprestimo ativo
+     (EmprestimoDAO.livroEstaEmprestado) e impede o emprestimo duplicado.
+   - Encerrar emprestimo faz UPDATE data_fim com "AND data_fim IS NULL", para nao sobrescrever
+     a data de um emprestimo ja finalizado. Se o campo "Data fim" estiver vazio, usa a data atual.
+   - A listagem usa JOIN para mostrar o titulo do livro e o nome do membro, com filtro
+     Todos / Ativos / Finalizados. Emprestimos ativos aparecem como "Em aberto".
+
+5) Interface e validacoes
+   - Campos obrigatorios (titulo; nome e matricula) e tamanho maximo conforme as colunas do banco.
+   - Ano e opcional; se informado precisa ser inteiro (salvo como NULL quando vazio).
+   - Datas no formato aaaa-mm-dd (java.sql.Date.valueOf), com mensagem de erro se invalidas.
+   - Campos sao limpos apos inserir, editar ou remover; a tabela e recarregada em seguida.
+   - Ao clicar em uma linha da tabela, os dados vao para o formulario para facilitar a edicao.
+   - Mensagens de sucesso/erro com JOptionPane.
+
+6) Limitacoes
+   - Telas feitas por codigo (sem o editor visual do NetBeans).
+   - Nao ha login nem controle de multa por atraso.
+   - Usuario/senha do banco ficam no codigo (adequado para trabalho academico).

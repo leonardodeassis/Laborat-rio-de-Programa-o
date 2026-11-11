@@ -1,0 +1,53 @@
+TUTORIAL - Sistema de Biblioteca com Persistencia
+
+REQUISITOS
+- JDK 17 ou superior
+- NetBeans (projeto Java com Ant)
+- MySQL Server 8 (e MySQL Workbench, opcional)
+- MySQL Connector/J (arquivo .jar)
+
+1) COMO CRIAR O BANCO DE DADOS
+   a) Abra o MySQL Workbench e conecte no servidor local (ou use o terminal).
+   b) Abra o arquivo biblioteca_schema.sql e execute tudo (raio amarelo).
+      Pelo terminal:
+          mysql -u root -p < biblioteca_schema.sql
+   c) Isso cria o banco "biblioteca" com as tabelas livro, membro e emprestimo
+      (com as chaves estrangeiras) e alguns dados de exemplo.
+   d) Confira com:  USE biblioteca;  SHOW TABLES;
+
+2) ONDE COLOCAR O MYSQL CONNECTOR/J E COMO CONFIGURAR
+   a) Baixe o "Platform Independent" (ZIP) em https://dev.mysql.com/downloads/connector/j/
+      e extraia o arquivo mysql-connector-j-8.x.x.jar.
+   b) Copie o .jar para a pasta lib/ do projeto (opcional, mas deixa tudo junto).
+   c) No NetBeans, clique com o botao direito no projeto BibliotecaPersistente
+      -> Properties -> Libraries.
+   d) Na aba "Compile" clique em "Add JAR/Folder", escolha o .jar e confirme com OK.
+
+3) COMO AJUSTAR USUARIO E SENHA EM ConnectionFactory
+   a) Abra src/biblioteca/util/ConnectionFactory.java.
+   b) Altere as constantes:
+          private static final String USUARIO = "root";
+          private static final String SENHA   = "sua_senha_aqui";
+   c) Se o MySQL nao estiver na porta 3306, ajuste tambem a constante URL.
+
+4) COMO EXECUTAR O PROJETO NO NETBEANS
+   a) Extraia o .zip e abra o projeto: File -> Open Project -> BibliotecaPersistente.
+      (Se o NetBeans reclamar de arquivos faltando, ele regenera sozinho; se nao abrir,
+       crie um projeto novo "Java with Ant -> Java Application" chamado BibliotecaPersistente,
+       desmarque "Create Main Class" e copie a pasta src/biblioteca para dentro do src do novo projeto.)
+   b) Confirme que o Connector/J foi adicionado (passo 2).
+   c) Clique com o botao direito no projeto -> Run (ou F6).
+      A classe principal e biblioteca.tela.TelaPrincipal.
+   d) Na tela principal use os botoes:
+        - Gerenciamento de Livros: cadastre, edite, remova e liste livros.
+        - Gerenciamento de Membros: idem para membros.
+        - Gerenciamento de Emprestimos: escolha livro e membro nos combos,
+          clique em "Realizar Emprestimo"; para devolver, selecione o emprestimo na
+          tabela e clique em "Encerrar Emprestimo".
+
+PROBLEMAS COMUNS
+- "No suitable driver found": o .jar do Connector/J nao foi adicionado em Libraries.
+- "Access denied for user": usuario/senha errados no ConnectionFactory.
+- "Unknown database 'biblioteca'": o script SQL ainda nao foi executado.
+- "Communications link failure": o servico do MySQL nao esta rodando.
+- Nao consegue remover livro/membro: ele possui emprestimos (chave estrangeira).

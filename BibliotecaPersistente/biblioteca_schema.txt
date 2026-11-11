@@ -1,0 +1,53 @@
+-- Sistema de Biblioteca com Persistencia (MySQL)
+-- Arquivo: biblioteca_schema.sql
+-- Execute inteiro no MySQL Workbench ou pelo terminal:
+--   mysql -u root -p < biblioteca_schema.sql
+
+
+DROP DATABASE IF EXISTS biblioteca;
+CREATE DATABASE biblioteca CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE biblioteca;
+
+-- Tabela livro
+CREATE TABLE livro (
+    id     INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    autor  VARCHAR(200),
+    ano    INT,
+    isbn   VARCHAR(50)
+) ENGINE=InnoDB;
+
+-- Tabela membro
+CREATE TABLE membro (
+    id        INT AUTO_INCREMENT PRIMARY KEY,
+    nome      VARCHAR(200) NOT NULL,
+    matricula VARCHAR(50)  NOT NULL,
+    contato   VARCHAR(100)
+) ENGINE=InnoDB;
+
+-- Tabela emprestimo (chaves estrangeiras para livro e membro)
+-- data_fim fica NULL enquanto o emprestimo estiver ativo.
+-- ON DELETE RESTRICT: nao deixa apagar livro/membro que tenha emprestimo.
+CREATE TABLE emprestimo (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    livro_id    INT  NOT NULL,
+    membro_id   INT  NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_fim    DATE NULL,
+    CONSTRAINT fk_emprestimo_livro  FOREIGN KEY (livro_id)  REFERENCES livro(id)  ON DELETE RESTRICT,
+    CONSTRAINT fk_emprestimo_membro FOREIGN KEY (membro_id) REFERENCES membro(id) ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+-- (Opcional) dados de exemplo para testar
+INSERT INTO livro (titulo, autor, ano, isbn) VALUES
+ ('Dom Casmurro', 'Machado de Assis', 1899, '978-85-359-0277-5'),
+ ('Algoritmos: Teoria e Pratica', 'Thomas H. Cormen', 2012, '978-85-352-3699-6');
+
+INSERT INTO membro (nome, matricula, contato) VALUES
+ ('Maria Silva', '2024001', 'maria@email.com');
+
+-- Consultas uteis para conferir os dados:
+-- SELECT * FROM livro;
+-- SELECT * FROM membro;
+-- SELECT e.id, l.titulo, m.nome, e.data_inicio, e.data_fim
+--   FROM emprestimo e JOIN livro l ON l.id = e.livro_id JOIN membro m ON m.id = e.membro_id;
