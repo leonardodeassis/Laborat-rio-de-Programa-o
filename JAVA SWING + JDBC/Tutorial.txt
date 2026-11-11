@@ -1,0 +1,36 @@
+TUTORIAL - SISTEMA CADASTRO ALUNOS
+
+1. PREPARACAO
+   - Ter o MySQL Server em execucao.
+   - Abrir o MySQL Workbench (ou terminal) e executar o arquivo escola.sql.
+     Ele cria o banco "escola" e as tabelas aluno, professor e curso.
+   - Conferir em src/cadastroalunos/ConnectionFactory.java se o usuario e a
+     senha do MySQL estao corretos (padrao: root / root).
+
+2. ABRINDO NO NETBEANS
+   - Criar um projeto em File > New Project > Java with Ant > Java Application,
+     com o nome CadastroAlunos (desmarcar "Create Main Class").
+   - Copiar os arquivos .java da pasta src/cadastroalunos para o pacote
+     cadastroalunos do projeto.
+   - Baixar o MySQL Connector/J (https://dev.mysql.com/downloads/connector/j/),
+     opcao "Platform Independent", e extrair o arquivo mysql-connector-j-X.X.X.jar.
+   - Clicar com o botao direito no projeto > Properties > Libraries >
+     Classpath > Add JAR/Folder e selecionar o .jar.
+
+3. EXECUTANDO
+   - Rodar o projeto (F6) ou executar a classe TelaPrincipal.
+
+4. NAVEGANDO NO SISTEMA
+   Tela Principal: possui cinco botoes.
+   - Alunos (Cadastrar e Listar): preencher Nome e E-mail e clicar em Salvar.
+     Os campos sao limpos e aparece uma mensagem de confirmacao. O botao
+     Listar mostra todos os alunos na area de texto.
+   - Cadastrar Professor: informar Nome e Disciplina e clicar em Inserir.
+   - Listar Professores: clicar em Listar para exibir os professores.
+   - Cadastrar Curso: informar Nome e Carga horaria (numero inteiro) e clicar
+     em Inserir.
+   - Listar Cursos: clicar em Listar para exibir os cursos.
+
+5. TRATAMENTO DE ERROS
+   Erros de conexao ou de SQL (SQLException) sao exibidos em uma janela de
+   mensagem. Campos vazios e carga horaria invalida tambem geram aviso.
